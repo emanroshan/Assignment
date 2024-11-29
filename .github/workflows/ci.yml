@@ -12,6 +12,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -19,14 +20,15 @@ jobs:
       - name: Set up Java
         uses: actions/setup-java@v3
         with:
-          java-version: '11' # Update based on your project requirement
+          java-version: '11'       # Specify the Java version
+          distribution: 'temurin'  # Specify the distribution (e.g., temurin)
 
       - name: Install Dependencies
         run: |
-          ./gradlew build # If using Gradle
-          mvn install     # If using Maven
+          ./gradlew build          # For Gradle projects
+          mvn install              # For Maven projects
 
       - name: Run Unit Tests
         run: |
-          ./gradlew test # For Gradle
-          mvn test       # For Maven
+          ./gradlew test           # For Gradle projects
+          mvn test                 # For Maven projects
