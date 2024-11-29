@@ -1,0 +1,32 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - feature/*
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11' # Update based on your project requirement
+
+      - name: Install Dependencies
+        run: |
+          ./gradlew build # If using Gradle
+          mvn install     # If using Maven
+
+      - name: Run Unit Tests
+        run: |
+          ./gradlew test # For Gradle
+          mvn test       # For Maven
