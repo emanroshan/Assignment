@@ -1,0 +1,32 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - feature/*
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'       # Specify the Java version
+          distribution: 'temurin'  # Specify the distribution (e.g., temurin)
+
+      - name: Install Dependencies
+        run: ./gradlew build
+
+
+      - name: Run Unit Tests
+        run: ./gradlew test
+
